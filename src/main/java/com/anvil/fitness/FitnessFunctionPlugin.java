@@ -16,6 +16,8 @@ public class FitnessFunctionPlugin implements Plugin<Project> {
             task.getAgent().set(project.provider(ext::getAgent));
             task.getModel().set(project.provider(ext::getModel));
             task.getPrompt().set(project.provider(ext::getPrompt));
+            task.getFitnessFunction().set(project.provider(ext::getFitnessFunction));
+            task.getThreshold().set(project.provider(ext::getThreshold));
         });
 
         project.getPlugins().withId("java", unused -> {

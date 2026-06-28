@@ -21,6 +21,12 @@ public abstract class CheckFitnessTask extends DefaultTask {
     @Input
     public abstract Property<String> getPrompt();
 
+    @Input
+    public abstract Property<String> getFitnessFunction();
+
+    @Input
+    public abstract Property<Double> getThreshold();
+
     @InputFiles
     @Optional
     public abstract ConfigurableFileCollection getSourceFiles();
@@ -34,13 +40,13 @@ public abstract class CheckFitnessTask extends DefaultTask {
 
         String model = getModel().get();
         String prompt = getPrompt().get();
+        String fitnessFunction = getFitnessFunction().get();
+        double threshold = getThreshold().get();
 
         SourceCollector collector = new SourceCollector();
         String sourceContent = collector.collect(getSourceFiles());
 
-        String message = sourceContent.isEmpty()
-                ? prompt
-                : prompt + "\n\n" + sourceContent;
+        String message = new MessageComposer().compose(prompt, fitnessFunction, threshold, sourceContent);
 
         getLogger().lifecycle("Running fitness check with model: {}", model);
         getLogger().lifecycle("Prompt: {}", prompt);
