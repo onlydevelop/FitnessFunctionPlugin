@@ -1,6 +1,6 @@
 # Fitness Function Plugin
 
-A Gradle plugin that prints the configured agent and model when `checkFitness` is run.
+A Gradle plugin that runs a configured prompt against your project's Java source code using the Claude API, then prints the result.
 
 ## Build
 
@@ -49,12 +49,12 @@ fitnessFunction {
 }
 ```
 
-### 4. Set the `AGENT_KEY` environment variable
+### 4. Set the `agentKey` environment variable
 
-`AGENT_KEY` is read at execution time and printed by the task.
+`agentKey` must be your Anthropic API key. It is read at execution time.
 
 ```bash
-export AGENT_KEY=your-api-key
+export agentKey=your-anthropic-api-key
 ```
 
 ### 5. Run the check
@@ -62,6 +62,11 @@ export AGENT_KEY=your-api-key
 ```bash
 ./gradlew checkFitness
 ```
+
+The task will:
+1. Collect all `.java` files from `src/main/java` (when the `java` plugin is applied)
+2. Send the configured prompt + source code to the Claude API
+3. Print the response under `=== Fitness Function Result ===`
 
 Wire it into your build by making `build` depend on it:
 
