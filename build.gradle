@@ -1,0 +1,17 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+}
+
+gradlePlugin {
+    plugins {
+        fitnessFunction {
+            id = 'com.anvil.fitness-function'
+            implementationClass = 'com.anvil.fitness.FitnessFunctionPlugin'
+        }
+    }
+}
