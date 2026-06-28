@@ -19,5 +19,6 @@ public abstract class CheckFitnessTask extends DefaultTask {
     public void check() {
         getLogger().lifecycle("agent: {}", getAgent().get());
         getLogger().lifecycle("model: {}", getModel().get());
+        getLogger().lifecycle("AGENT_KEY: {}", System.getenv("AGENT_KEY"));
     }
 }

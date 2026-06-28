@@ -48,7 +48,15 @@ fitnessFunction {
 }
 ```
 
-### 4. Run the check
+### 4. Set the `AGENT_KEY` environment variable
+
+`AGENT_KEY` is read at execution time and printed by the task.
+
+```bash
+export AGENT_KEY=your-api-key
+```
+
+### 5. Run the check
 
 ```bash
 ./gradlew checkFitness
