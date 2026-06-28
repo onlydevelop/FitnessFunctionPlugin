@@ -10,9 +10,9 @@ public class FitnessFunctionPlugin implements Plugin<Project> {
         FitnessFunctionExtension ext = project.getExtensions().create("fitnessFunction", FitnessFunctionExtension.class);
         project.getTasks().register("checkFitness", CheckFitnessTask.class, task -> {
             task.setGroup("verification");
-            task.setDescription("Fails the build if the configured env var matches the fail value.");
-            task.getEnvVar().convention(project.provider(ext::getEnvVar));
-            task.getFailOnValue().convention(project.provider(ext::getFailOnValue));
+            task.setDescription("Prints the configured agent and model.");
+            task.getAgent().set(project.provider(ext::getAgent));
+            task.getModel().set(project.provider(ext::getModel));
         });
     }
 }

@@ -1,6 +1,6 @@
 # Fitness Function Plugin
 
-A Gradle plugin that fails a build when a configured environment variable matches a specified value. Useful as a fitness function to enforce build constraints in CI pipelines.
+A Gradle plugin that prints the configured agent and model when `checkFitness` is run.
 
 ## Build
 
@@ -37,14 +37,14 @@ plugins {
 }
 ```
 
-### 3. Configure the extension (optional)
+### 3. Configure the extension
 
-The defaults are `envVar = "FITNESS_FUNCTION_FAIL"` and `failOnValue = "true"`.
+Both `agent` and `model` are required.
 
 ```groovy
 fitnessFunction {
-    envVar      = 'MY_GATE_VAR'   // env var to check
-    failOnValue = 'fail'          // build fails when the var equals this value
+    agent = 'claude'
+    model = 'claude-sonnet-4-6'
 }
 ```
 
@@ -54,27 +54,10 @@ fitnessFunction {
 ./gradlew checkFitness
 ```
 
-The `checkFitness` task is in the `verification` group. Wire it into your CI by making other tasks depend on it:
+Wire it into your build by making `build` depend on it:
 
 ```groovy
 tasks.named('build') {
     dependsOn 'checkFitness'
 }
-```
-
-## Behaviour
-
-| Env var value       | Result        |
-|---------------------|---------------|
-| equals `failOnValue` | Build **fails** |
-| anything else (including unset) | Build **passes** |
-
-### Example
-
-```bash
-# passes
-./gradlew checkFitness
-
-# fails
-FITNESS_FUNCTION_FAIL=true ./gradlew checkFitness
 ```

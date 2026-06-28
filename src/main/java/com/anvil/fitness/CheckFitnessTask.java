@@ -1,7 +1,6 @@
 package com.anvil.fitness;
 
 import org.gradle.api.DefaultTask;
-import org.gradle.api.GradleException;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.TaskAction;
@@ -11,20 +10,14 @@ import org.gradle.work.DisableCachingByDefault;
 public abstract class CheckFitnessTask extends DefaultTask {
 
     @Input
-    public abstract Property<String> getEnvVar();
+    public abstract Property<String> getAgent();
 
     @Input
-    public abstract Property<String> getFailOnValue();
+    public abstract Property<String> getModel();
 
     @TaskAction
     public void check() {
-        String envVar = getEnvVar().get();
-        String failOnValue = getFailOnValue().get();
-        String value = System.getenv(envVar);
-        if (failOnValue.equals(value)) {
-            throw new GradleException(
-                "Fitness function failed: env var '" + envVar + "' equals '" + failOnValue + "'");
-        }
-        getLogger().lifecycle("Fitness function passed: '{}' is not '{}'", envVar, failOnValue);
+        getLogger().lifecycle("agent: {}", getAgent().get());
+        getLogger().lifecycle("model: {}", getModel().get());
     }
 }
