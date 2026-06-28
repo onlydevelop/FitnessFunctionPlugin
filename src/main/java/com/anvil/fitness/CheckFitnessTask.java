@@ -15,10 +15,14 @@ public abstract class CheckFitnessTask extends DefaultTask {
     @Input
     public abstract Property<String> getModel();
 
+    @Input
+    public abstract Property<String> getPrompt();
+
     @TaskAction
     public void check() {
         getLogger().lifecycle("agent: {}", getAgent().get());
         getLogger().lifecycle("model: {}", getModel().get());
+        getLogger().lifecycle("prompt: {}", getPrompt().get());
         getLogger().lifecycle("AGENT_KEY: {}", System.getenv("AGENT_KEY"));
     }
 }

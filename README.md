@@ -39,12 +39,13 @@ plugins {
 
 ### 3. Configure the extension
 
-Both `agent` and `model` are required.
+`agent`, `model`, and `prompt` are all required.
 
 ```groovy
 fitnessFunction {
-    agent = 'claude'
-    model = 'claude-sonnet-4-6'
+    agent  = 'claude'
+    model  = 'claude-sonnet-4-6'
+    prompt = 'Analyze the refactoring fitness function'
 }
 ```
 

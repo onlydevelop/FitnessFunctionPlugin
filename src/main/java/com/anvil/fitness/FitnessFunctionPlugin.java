@@ -13,6 +13,7 @@ public class FitnessFunctionPlugin implements Plugin<Project> {
             task.setDescription("Prints the configured agent and model.");
             task.getAgent().set(project.provider(ext::getAgent));
             task.getModel().set(project.provider(ext::getModel));
+            task.getPrompt().set(project.provider(ext::getPrompt));
         });
     }
 }
