@@ -45,4 +45,10 @@ class MessageComposerTest {
         assertFalse(result.isBlank());
         assertFalse(result.contains("null"));
     }
+
+    @Test
+    void includesFitnessValueMarkerInstruction() {
+        String result = composer.compose("analyze", "h*3", 20.0, "");
+        assertTrue(result.contains("FITNESS_VALUE:"));
+    }
 }

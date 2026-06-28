@@ -10,6 +10,7 @@ public class MessageComposer {
         if (!sourceContent.isEmpty()) {
             sb.append("\n").append(sourceContent);
         }
+        sb.append("\nAt the end of your response, output exactly this line: FITNESS_VALUE: <computed_total>");
         return sb.toString();
     }
 

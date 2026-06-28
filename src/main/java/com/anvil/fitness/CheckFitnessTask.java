@@ -1,5 +1,6 @@
 package com.anvil.fitness;
 
+import org.gradle.api.GradleException;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.provider.Property;
@@ -55,5 +56,13 @@ public abstract class CheckFitnessTask extends DefaultTask {
         String result = client.sendMessage(apiKey, model, message);
 
         getLogger().lifecycle("=== Fitness Function Result ===\n{}", result);
+
+        double value = new FitnessResultParser().parse(result);
+        getLogger().lifecycle("Fitness value: {} (threshold: {})", value, threshold);
+
+        if (value > threshold) {
+            throw new GradleException(
+                    "Fitness function value " + value + " exceeds threshold " + threshold + ". Build failed.");
+        }
     }
 }
